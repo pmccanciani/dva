@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+	<!-- jquery -->
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="bootstrap.min.css" >
+    <script type="text/javascript">
+		function loadDoc(ordena, sent) {
+			var ordenacao = ordena;
+			var sentido = sent;
+			$.ajax({
+				type: "POST",
+				url: "load_post.php",
+				data: { campo: ordenacao, tipo: sentido },
+				success: function(dados){
+					$('#corpo_tabela').html(dados);
+				}
+			});
+		}
+		function printer(id) {
+			var identific = id;
+			$.ajax({
+				type: "POST",
+				url: "printer.php",
+				data: { id: identific },
+				success: function(dados){
+					console.log(dados);
+					$('#posiciona').html(dados);
+				}
+			});
+			abre();
+		}
+		function abre() { 
+			document.getElementById("posiciona").style.display = 'block'; 
+		}
+		function fechar() { 
+			document.getElementById("posiciona").style.display = 'none'; 
+		}
+	</script>
+	<style type="text/css">
+		#posiciona {
+			margin: 5px; 
+			font-size: 12px;
+			position: absolute; 
+			left: 50%; 
+			top: 50%;
+			width: 400px; 
+			height: 350px; 
+			margin-left: -150px;
+			margin-top: -155px;
+			background-color: #FFF;
+			color: #FFF;
+			background-color: #666;
+			z-index: 1000; 
+		}
+		#fechar { margin: 5px; font-size: 12px; }
+	</style>
+	
+</head>
+<body onload="loadDoc();">
+	<div class="conteiner" style="padding: 3% 10% 0% 10%;">
+		<div class="card">
+			<div class="card-header">
+				TESTE TECNICO – Grupo DVA
+			</div>
+			<div class="card-body" id="corpo_tabela">
+				
+				
+				
+				
+			</div>
+		</div>
+	</div>
+	<div id="posiciona" style="display: none;"> 
+	</div>
+</body>
+</html>
